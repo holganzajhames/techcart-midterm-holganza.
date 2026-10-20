@@ -1,0 +1,72 @@
+classDiagram
+class Product {
+ +String id
+ +String name
+ +String category
+ +Number price
+ +Number oldPrice
+ +Number stock
+ +Number rating
+ +Number reviews
+ +String color
+ +String kind
+ +String tag
+ +String description
+ +String[] specs
+ +discount Number
+}
+class CartItem {
+ +Product product
+ +Number quantity
+ +subtotal Number
+}
+class Cart {
+ +CartItem[] items
+ +count Number
+ +subtotal Number
+ +shipping Number
+ +total Number
+ +add(product, quantity) Cart
+ +update(id, quantity) Cart
+ +remove(id) Cart
+ +toJSON() Object[]
+ +restore(raw, products)$ Cart
+}
+class Customer {
+ +String name
+ +String email
+ +String phone
+ +String address
+ +String city
+ +String postal
+}
+class Order {
+ +String id
+ +Customer customer
+ +CartItem[] items
+ +Number subtotal
+ +Number shipping
+ +Number total
+ +String date
+ +String status
+}
+class StoreContent {
+ +Object hero
+ +Object shop
+ +Object product
+ +Object cart
+ +Object checkout
+ +Object about
+ +Object footer
+ +Object[] nav
+ +String[] categories
+ +Object[] sorts
+ +Object[] perks
+ +String brand
+ +String currency
+ +String locale
+}
+Cart "1" *-- "0..*" CartItem : owns
+CartItem "0..*" --> "1" Product : references
+Order "1" *-- "1..*" CartItem : snapshots
+Order "0..*" --> "1" Customer : placed by
